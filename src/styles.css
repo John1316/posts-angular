@@ -146,6 +146,9 @@ flex-shrink: 0;
   transition: all .4s;
   cursor: pointer !important;
 }
+.add_btn:hover{
+  background-color: #562ff3 !important;
+}
 /* -------------- USER NAV -------------- */
 .user-nav, .user-info {
   display: flex;
@@ -422,7 +425,9 @@ flex-shrink: 0;
   .section-header {
       font-size: 18px;
   }
-
+  .table tr{
+    margin-bottom: 10px;
+  }
   table, tbody, th, td, tr {
   display: block;
 }
@@ -454,10 +459,10 @@ flex-shrink: 0;
       justify-content: end;
   }
 
-  td:nth-of-type(1):before { content: "Transactions"; }
-  td:nth-of-type(2):before { content: "Date"; }
-  td:nth-of-type(3):before { content: "Amount"; }
-  td:nth-of-type(4):before { content: "Status"; }
+  td:nth-of-type(1):before { content: "#"; }
+  td:nth-of-type(2):before { content: "Post Message"; }
+  td:nth-of-type(3):before { content: "Post Title"; }
+  td:nth-of-type(4):before { content: "Image"; }
 
   .total-box p, .box p {
       font-size: 14px;
@@ -524,6 +529,13 @@ flex-shrink: 0;
   border-radius: 0.5rem;
   max-height: 100vh;
     overflow: auto;
+}
+@media screen and (max-width: 768px) {
+  .modal-content {
+
+  width: 90vw !important;
+  }
+
 }
 .close-button {
   position: absolute;

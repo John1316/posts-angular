@@ -32,7 +32,7 @@ export class PostsService {
     formData.append('post_title',post_title);
     formData.append('post_message',post_message);
     formData.append('post_image',post_image);
-    return this._HttpClient.post(`${environment.apiUrl}/api/create` , formData , {
+    return this._HttpClient.post<Posts[]>(`${environment.apiUrl}/api/create` , formData , {
       responseType: 'text' as 'json'
     })
   }
@@ -49,7 +49,7 @@ export class PostsService {
 
   // delete Posts function
   deletePost(formData:number):Observable<any>{
-    return this._HttpClient.post(`https://task.astra-tech.net/fronendtask/public/api/deletepost` , {id: formData} , {
+    return this._HttpClient.post<Posts[]>(`https://task.astra-tech.net/fronendtask/public/api/deletepost` , {id: formData} , {
       responseType: 'text' as 'json'
     })
   }

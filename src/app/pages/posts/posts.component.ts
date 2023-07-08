@@ -13,7 +13,7 @@ export class PostsComponent implements OnInit {
   toastrMessage:string = ''
   toastrType:string = ''
   loading: boolean = true;
-  posts: any[] = [];
+  posts: Posts[] = [];
   post_title: string ='';
   post_message: string ='';
   activeModalDelete:boolean = false;
@@ -21,6 +21,7 @@ export class PostsComponent implements OnInit {
   activeUpdateModal:boolean = false;
   clickActionId:any = ''
   searchWord!: any;
+
   constructor(
     private _PostsService:PostsService,
     private _Title:Title,
@@ -32,12 +33,14 @@ export class PostsComponent implements OnInit {
     post_message : new FormControl('', Validators.required),
     post_image : new FormControl(null, Validators.required),
   })
+
   // updateForm
   updatePostForm = new FormGroup({
     post_title : new FormControl('', Validators.required),
     post_message : new FormControl('', Validators.required),
     post_image : new FormControl(null)
   })
+
   onSelectImage(event:any){
     const file = event.target.files ? event.target.files[0] : '';
     this.postForm.patchValue({
@@ -101,35 +104,19 @@ export class PostsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.showPosts()
+    this._Title.setTitle('Task | posts')
   }
 
-    onCreatePost(): void{
-      // create post
+  onSubmitApi(toastrMessage:string , toastrType:string){
+    this.toastrMessage = toastrMessage
+    this.toastrType = toastrType
+    this.showPosts()
 
-      // this._PostsService.createPost(
-      //   this.postForm.value.post_title,
-      //   this.postForm.value.post_message,
-      //   this.postForm.value.post_image,
-      // ).subscribe(response => {
-      //     console.log('create response',response)
-      //     if(response === 'Done'){
-      //       this.toastrMessage = 'Your Post created successfully'
-      //       this.toastrType = 'alert-success'
+  }
 
-      //       this.showPosts()
+  // create post
+    onCreatePost(){
 
-      //       this.postForm.reset();
-      //     }
-      //   }, error => {
-      //     console.log('error in post create', error)
-      //     if(error.status === 200) {
-      //       this.activeModalCreate = false
-      //       this.showPosts()
-      //       this.toastrMessage = 'Your Post created successfully'
-      //       this.toastrType = 'alert-success'
-      //     }
-      //   }
-      // )
       this._PostsService.createPost(
           this.postForm.value.post_title,
           this.postForm.value.post_message,
@@ -137,10 +124,11 @@ export class PostsComponent implements OnInit {
         ).subscribe(response => {
             console.log('create response',response)
             if(response === 'Done'){
-              this.toastrMessage = 'Your Post created successfully'
-              this.toastrType = 'alert-success'
+              // this.toastrMessage = 'Your Post created successfully'
+              // this.toastrType = 'alert-success'
 
-              this.showPosts()
+              // this.showPosts()
+              this.onSubmitApi('Your Post created successfully' , 'alert-success')
               this.activeModalCreate = false
               this.postForm.reset();
             }
@@ -148,9 +136,8 @@ export class PostsComponent implements OnInit {
             console.log('error in post create', error)
             if(error.status === 200) {
               this.activeModalCreate = false
-              this.showPosts()
-              this.toastrMessage = 'Your Post created successfully'
-              this.toastrType = 'alert-success'
+              this.onSubmitApi('Your Post created successfully' , 'alert-success')
+
               this.activeModalCreate = false
 
             }
@@ -164,9 +151,8 @@ export class PostsComponent implements OnInit {
       this._PostsService.deletePost(this.clickActionId).subscribe(response => {
         console.log('response delte',response)
         this.activeModalDelete = false
-          this.showPosts()
-          this.toastrMessage = 'Post deleted successfully'
-              this.toastrType = 'alert-danger'
+        this.onSubmitApi('Your Post deleted successfully' , 'alert-danger')
+
       }, error => {
         console.log('error in delte',error)
         if(error.status === 200) {
@@ -194,18 +180,15 @@ export class PostsComponent implements OnInit {
       )
       .subscribe((response) => {
         console.log(response)
-        this.toastrMessage = 'Your Post updated successfully'
-            this.toastrType = 'alert-success'
-            this.showPosts()
+        this.onSubmitApi('Your Post updated successfully' , 'alert-success')
+
 
             this.updatePostForm.reset();
             this.activeUpdateModal = false
       }, error => {
         console.log(error)
-        this.toastrMessage = 'Your Post updated successfully'
-            this.toastrType = 'alert-success'
+        this.onSubmitApi('Your Post updated successfully' , 'alert-success')
 
-            this.showPosts()
 
             this.updatePostForm.reset();
             this.activeUpdateModal = false

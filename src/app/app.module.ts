@@ -7,21 +7,24 @@ import { PostsComponent } from './pages/posts/posts.component';
 import { HeaderComponent } from './shared-pages/header/header.component';
 import { AsideComponent } from './shared-pages/aside/aside.component';
 import { AboutComponent } from './pages/about/about.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { SearchPipe } from './pipes/search.pipe'
 @NgModule({
   declarations: [
     AppComponent,
     PostsComponent,
     HeaderComponent,
     AsideComponent,
-    AboutComponent
+    AboutComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

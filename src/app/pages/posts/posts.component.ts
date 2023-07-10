@@ -38,9 +38,9 @@ export class PostsComponent implements OnInit {
 
   // updateForm
   updatePostForm = new FormGroup({
-    post_title : new FormControl('', Validators.required),
-    post_message : new FormControl('', Validators.required),
-    post_image : new FormControl(null)
+    update_post_title : new FormControl('', Validators.required),
+    update_post_message : new FormControl('', Validators.required),
+    update_post_image : new FormControl(null)
   })
 
   onSelectImage(event:any){
@@ -54,9 +54,9 @@ export class PostsComponent implements OnInit {
   onSelectUpdatePostImage(event:any){
     const file = event.target.files ? event.target.files[0] : '';
     this.updatePostForm.patchValue({
-      post_image: file
+      update_post_image: file
     })
-    this.updatePostForm.get('post_image')?.updateValueAndValidity()
+    this.updatePostForm.get('update_post_image')?.updateValueAndValidity()
   }
 
 
@@ -176,14 +176,14 @@ export class PostsComponent implements OnInit {
 
     // request update
     onUpdatePost(){
-      console.log(this.updatePostForm.value.post_image)
+      console.log(this.updatePostForm.value.update_post_image)
       var formData = new FormData();
       formData.append('id', this.clickActionId);
-      formData.append('post_title', this.updatePostForm.value.post_title || '');
+      formData.append('post_title', this.updatePostForm.value.update_post_title || '');
 
-      formData.append('post_message', this.updatePostForm.value.post_message || '');
-      if(this.updatePostForm.value.post_image !== null){
-        formData.append("post_image", this.updatePostForm.value.post_image || '');
+      formData.append('post_message', this.updatePostForm.value.update_post_message || '');
+      if(this.updatePostForm.value.update_post_image !== null){
+        formData.append("post_image", this.updatePostForm.value.update_post_image || '');
       }
       this._PostsService.updatePost(
         formData

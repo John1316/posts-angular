@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://task.astra-tech.net/fronendtask/public'
+
 };

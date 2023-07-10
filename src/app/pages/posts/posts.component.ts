@@ -17,10 +17,12 @@ export class PostsComponent implements OnInit {
   post_title: string ='';
   post_message: string ='';
   activeModalDelete:boolean = false;
+  activeViewImageModal:boolean = false;
   activeModalCreate:boolean = false;
   activeUpdateModal:boolean = false;
   clickActionId:any = ''
   searchWord!: any;
+  post_image_modal:string = ''
 
   constructor(
     private _PostsService:PostsService,
@@ -72,9 +74,13 @@ export class PostsComponent implements OnInit {
   closeUpdateModal(){
     this.activeUpdateModal = false
   }
+  closeViewImageModal(){
+    this.activeViewImageModal = false
+    this.post_image_modal = ''
+
+  }
   closeCreateModal(){
     this.activeModalCreate = false
-    console.log("closee")
   }
 
 
@@ -90,6 +96,10 @@ export class PostsComponent implements OnInit {
     this.activeModalDelete = true
     this.clickActionId = id
     console.log("delete")
+  }
+  viewImage(image:string){
+    this.activeViewImageModal = true
+    this.post_image_modal = image
   }
 
   showPosts(){
